@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="hy">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Շուկայի աշխարհը | Մրցակցություն և մենաշնորհ</title>
+
+    <style>
+        :root {
+            --navy: #17243b;
+            --blue: #5276df;
+            --bg: #f3f5f9;
+            --white: #ffffff;
+            --text: #222c40;
+            --muted: #718096;
+            --border: #e3e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        .app {
+            display: grid;
+            grid-template-columns: 245px minmax(0, 1fr);
+            min-height: 100vh;
+        }
+
+        /* ========== ՁԱԽ ՄԵՆՅՈՒ ========== */
+
+        .sidebar {
+            background: var(--navy);
+            color: white;
+            padding: 24px 15px;
+            min-height: 100vh;
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: bold;
+            padding: 10px;
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+
+        .logo span {
+            color: #91adff;
+        }
+
+        .menu-title {
+            font-size: 11px;
+            color: #9eacc7;
+            padding: 10px;
+            letter-spacing: 1px;
+        }
+
+        .menu-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 9px;
+            background: transparent;
+            color: #dce4f5;
+            text-align: left;
+            font-size: 13px;
+            line-height: 1.5;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .menu-btn:hover,
+        .menu-btn.active {
+            background: var(--blue);
+            color: white;
+        }
+
+        .menu-btn.brand-link {
+            padding-left: 24px;
+            color: #bdc9df;
+        }
+
+        /* ========== ՀԻՄՆԱԿԱՆ ՀԱՏՎԱԾ ========== */
+
+        main {
+            min-width: 0;
+            padding: 30px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            font-size: clamp(22px, 3vw, 31px);
+        }
+
+        .tag {
+            background: #e4eaff;
+            color: #3657ad;
+            border-radius: 20px;
+            padding: 9px 13px;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+        }
+
+        /* ========== ԳԼԽԱՎՈՐ ԲԱՆԵՐ ========== */
+
+        .hero {
+            min-height: 270px;
+            padding: 35px;
+            border-radius: 18px;
+            color: white;
+            background:
+                linear-gradient(90deg, #14213beF, #243a65c9),
+                url("https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1400&q=85") center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-bottom: 28px;
+        }
+
+        .hero-label {
+            color: #b9cbff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 11px;
+            margin-bottom: 14px;
+        }
+
+        .hero h2 {
+            font-size: clamp(27px, 4vw, 43px);
+            max-width: 650px;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            color: #e3eaf9;
+            line-height: 1.8;
+            max-width: 650px;
+        }
+
+        .section-heading {
+            font-size: 21px;
+            margin-bottom: 7px;
+        }
+
+        .section-subtitle {
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 14px;
+            margin-bottom: 19px;
+        }
+
+        /* ========== ԲՐԵՆԴՆԵՐԻ ՔԱՐՏԵՐ ========== */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px #17243b12;
+        }
+
+        .card img {
+            display: block;
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            background: #e4e8f0;
+        }
+
+        .card-content {
+            padding: 18px;
+        }
+
+        .card-category {
+            color: var(--blue);
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 9px;
+        }
+
+        .card h3 {
+            font-size: 19px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        .open-btn {
+            border: none;
+            border-radius: 8px;
+            padding: 11px 15px;
+            margin-top: 15px;
+            background: var(--blue);
+            color: white;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .open-btn:hover {
+            background: #3d5fbd;
+        }
+
+        /* ========== ԹՎԵՐ ԵՎ ՏԵՂԵԿԱՏՎԱԿԱՆ ԲԼՈԿՆԵՐ ========== */
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            margin: 25px 0;
+        }
+
+        .info-box {
+            padding: 18px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .info-box h3 {
+            font-size: 15px;
+            margin-bottom: 9px;
+        }
+
+        .info-box p {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        /* ========== ՆՅՈՒԹԻ ԷՋ ========== */
+
+        .article {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 26px;
+            line-height: 1.9;
+        }
+
+        .article h2 {
+            font-size: 26px;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        .article h3 {
+            margin: 24px 0 8px;
+            font-size: 18px;
+        }
+
+        .article p {
+            color: #526078;
+            margin: 12px 0;
+        }
+
+        .article img {
+            display: block;
+            width: 100%;
+            max-height: 390px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin: 22px 0;
+        }
+
+        .article ul {
+            padding-left: 23px;
+            color: #526078;
+        }
+
+        .article li {
+            margin: 8px 0;
+        }
+
+        .back-btn {
+            border: none;
+            border-radius: 8px;
+            padding: 11px 15px;
+            margin-bottom: 17px;
+            color: #3657ad;
+            background: #e4eaff;
+            cursor: pointer;
+        }
+
+        /* ========== ՀԱՄԵՄԱՏԱԿԱՆ ԱՂՅՈՒՍԱԿ ========== */
+
+        .table-wrap {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: 20px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: white;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 620px;
+            text-align: left;
+        }
+
+        th,
+        td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+            line-height: 1.7;
+            vertical-align: top;
+        }
+
+        th {
+            background: #eaf0ff;
+            color: #294b9d;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        td:first-child {
+            font-weight: bold;
+        }
+
+        /* ========== ԵԶՐԱԿԱՑՈՒԹՅՈՒՆ ========== */
+
+        .note {
+            background: #edf2ff;
+            border-left: 4px solid var(--blue);
+            padding: 17px;
+            border-radius: 5px 12px 12px 5px;
+            margin-top: 22px;
+            line-height: 1.8;
+            color: #33476f;
+            font-size: 13px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 32px 0 10px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        /* ========== ՀԵՌԱԽՈՍ ========== */
+
+        @media (max-width: 850px) {
+            .app {
+                grid-template-columns: 200px minmax(0, 1fr);
+            }
+
+            main {
+                padding: 20px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .app {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                min-height: auto;
+                padding: 14px;
+            }
+
+            .logo {
+                margin-bottom: 12px;
+            }
+
+            .menu-list {
+                display: flex;
+                overflow-x: auto;
+                gap: 6px;
+                padding-bottom: 7px;
+            }
+
+            .menu-btn,
+            .menu-btn.brand-link {
+                width: auto;
+                min-width: max-content;
+                padding: 10px 12px;
+                margin: 0;
+            }
+
+            .menu-title {
+                padding-left: 5px;
+            }
+
+            main {
+                padding: 15px;
+            }
+
+            .hero {
+                padding: 23px;
+                min-height: 250px;
+            }
+
+            .article {
+                padding: 18px;
+            }
+
+            .article h2 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app">
+
+        <aside class="sidebar">
+            <div class="logo">✦ Շուկայի <span>աշխարհը</span></div>
+            <div class="menu-title">ԳԼԽԱՎՈՐ ՄԵՆՅՈՒ</div>
+            <nav class="menu-list" id="menu"></nav>
+        </aside>
+
+        <main>
+            <header>
+                <h1 id="pageTitle">Շուկայի աշխարհը</h1>
+                <span class="tag">ՏՆՏԵՍԱԳԻՏՈՒԹՅՈՒՆ</span>
+            </header>
+
+            <div id="content"></div>
+
+            <footer>
+                Շուկայական մրցակցություն և մենաշնորհ · 2026
+            </footer>
+        </main>
+
+    </div>
+
+    <script>
+
+        /* ======================================
+           ԲՈԼՈՐ ԲԱԺԻՆՆԵՐԻ ՏԵՂԵԿՈՒԹՅՈՒՆՆԵՐԸ
+           ՓՈԽԻՐ ՏԵՔՍՏԵՐԸ ԵՎ ՆԿԱՐՆԵՐԻ ՀՂՈՒՄՆԵՐԸ ԱՅՍՏԵՂ
+        ====================================== */
+
+        const sections = [
+
+            {
+                id: "home",
+                name: "Գլխավոր",
+                title: "Շուկայի աշխարհը",
+                description: "Բացահայտիր շուկայական մրցակցության աշխարհը, ուսումնասիրիր հինգ հայտնի բրենդ և համեմատիր նրանց դիրքերը շուկայում։",
+                image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=85",
+                text: [
+                    "Շուկան տնտեսական համակարգի կարևոր մասն է։ Այստեղ գնորդներն ու վաճառողները փոխազդում են, ձևավորվում են գները, և ընկերությունները մրցում են սպառողների ընտրության համար։"
+                ]
+            },
+
+            {
+                id: "market",
+                name: "Շուկա",
+                title: "Ի՞նչ է շուկան",
+                description: "Շուկայի նշանակությունն ու հիմնական մասնակիցները։",
+                image: "https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1200&q=85",
+                text: [
+                    "Շուկան տնտեսական հարաբերությունների համակարգ է, որտեղ գնորդներն ու վաճառողները փոխանակում են ապրանքներ և ծառայություններ։",
+                    "Գնորդները ձևավորում են պահանջարկը, իսկ վաճառողները՝ առաջարկը։ Դրանց փոխազդեցության արդյունքում ձևավորվում է շուկայական գինը։",
+                    "Շուկայի հիմնական մասնակիցներն են գնորդները, վաճառողները, ապրանքներն ու ծառայությունները և գները։"
+                ]
+            },
+
+            {
+                id: "structure",
+                name: "Շուկայի կառուցվածքը",
+                title: "Շուկայի կառուցվածքը",
+                description: "Ինչպես են տարբերվում շուկայի տեսակները։",
+                image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=85",
+                text: [
+                    "Շուկայի կառուցվածքը ցույց է տալիս, թե քանի վաճառող է գործում շուկայում, որքան ուժեղ է մրցակցությունը և ինչ ազդեցություն ունեն ընկերությունները գների վրա։",
+                    "Հիմնական տեսակներն են կատարյալ մրցակցությունը, մենաշնորհային մրցակցությունը, օլիգոպոլիան և մենաշնորհը։"
+                ]
+            },
+
+            {
+                id: "competition",
+                name: "Մրցակցության տեսակները",
+                title: "Մրցակցության տեսակները",
+                description: "Ընկերությունների պայքարը սպառողների համար։",
+                image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&q=85",
+                text: [
+                    "Կատարյալ մրցակցություն․ բազմաթիվ վաճառողներ առաջարկում են միանման ապրանքներ, իսկ առանձին վաճառողի ազդեցությունը գնի վրա սահմանափակ է։",
+                    "Մենաշնորհային մրցակցություն․ բազմաթիվ ընկերություններ առաջարկում են նմանատիպ, բայց տարբերակված ապրանքներ։",
+                    "Օլիգոպոլիա․ շուկայի զգալի մասը պատկանում է մի քանի խոշոր ընկերությունների։",
+                    "Մենաշնորհ․ տվյալ շուկայում գործում է մեկ հիմնական մատակարար, իսկ մրցակցությունը սահմանափակ է։"
+                ]
+            },
+
+            {
+                id: "monopoly",
+                name: "Մենաշնորհ",
+                title: "Ի՞նչ է մենաշնորհը",
+                description: "Երբ մեկ մատակարար զգալի ազդեցություն ունի շուկայում։",
+                image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=85",
+                text: [
+                    "Մենաշնորհը շուկայական իրավիճակ է, երբ որոշակի ապրանքի կամ ծառայության շուկայում կա մեկ հիմնական մատակարար, և նոր մրցակիցների մուտքը կարող է դժվար լինել։",
+                    "Մենաշնորհային դիրքը կարող է ընկերությանը հնարավորություն տալ ավելի մեծ ազդեցություն ունենալ գնի և առաջարկի վրա։"
+                ]
+            },
+
+            /* ԲՐԵՆԴ 1 */
+
+            {
+                id: "mcdonalds",
+                name: "McDonald's",
+                title: "McDonald's",
+                category: "Արագ սնունդ",
+                description: "Արագ սննդի համաշխարհային ճանաչում ունեցող ցանց։",
+                image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1200&q=85",
+                text: [
+                    "McDonald's-ը միջազգային արագ սննդի ցանց է, որը հայտնի է բուրգերներով, կարտոֆիլ ֆրիով և արագ սպասարկմամբ։",
+                    "Շուկայական դիրք․ բրենդն ունի լայն միջազգային ներկայություն և բարձր ճանաչելիություն բազմաթիվ երկրներում։",
+                    "Մրցակցային առավելություններ․ ճանաչելի ապրանքանիշ, արագ սպասարկման համակարգ, բազմազան մենյու և լայն ցանց։",
+                    "Մրցակիցներ․ Burger King-ը, Wendy's-ը և արագ սննդի այլ ցանցեր։",
+                    "Դիրքը տարբեր երկրներում կարող է տարբեր լինել՝ կախված մասնաճյուղերի թվից, վաճառքից և տեղական պահանջարկից։"
+                ]
+            },
+
+
+            {
+                id: "burgerking",
+                name: "Burger King",
+                title: "Burger King",
+                category: "Արագ սնունդ",
+                description: "Բուրգերների շուկայում McDonald's-ի հայտնի մրցակիցներից մեկը։",
+                image: "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=1200&q=85",
+                text: [
+                    "Burger King-ը միջազգային արագ սննդի ցանց է, որն առավել հայտնի է իր բուրգերներով։",
+                    "Շուկայական դիրք․ բրենդը գործում է արագ սննդի մրցակցային շուկայում և մրցում է միջազգային ու տեղական ցանցերի հետ։",
+                    "Մրցակցային առավելություններ․ բուրգերների բազմազանություն, ապրանքանիշի ճանաչելիություն և գովազդային արշավներ։",
+                    "Մրցակիցներ․ McDonald's-ը, Wendy's-ը և այլ բուրգերային ցանցեր։"
+                ]
+            },
+
+
+
+            {
+                id: "kfc",
+                name: "KFC",
+                title: "KFC",
+                category: "Արագ սնունդ",
+                description: "Հավի մսով ուտեստների մասնագիտացված միջազգային ցանց։",
+                image: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=1200&q=85",
+                text: [
+                    "KFC-ն միջազգային արագ սննդի բրենդ է, որը մասնագիտանում է հավի մսով ուտեստների մեջ։",
+                    "Շուկայական դիրք․ այն մրցում է արագ սննդի ոլորտում՝ միաժամանակ կենտրոնանալով հավի մսով ուտեստների իր տեսականու վրա։",
+                    "Մրցակցային առավելություններ․ մասնագիտացված մենյու, ճանաչելի ապրանքանիշ և պատրաստման առանձնահատուկ ոճ։",
+                    "Մրցակիցներ․ Popeyes-ը, McDonald's-ը և հավի մսով ուտեստներ առաջարկող այլ ցանցեր։"
+                ]
+            },
+
+
+
+            {
+                id: "subway",
+                name: "Subway",
+                title: "Subway",
+                category: "Սենդվիչներ",
+                description: "Սենդվիչների և անհատական ընտրությամբ պատրաստվող ուտեստների ցանց։",
+                image: "https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=1200&q=85",
+                text: [
+                    "Subway-ը միջազգային արագ սննդի բրենդ է, որը հիմնականում առաջարկում է սենդվիչներ և աղցաններ։",
+                    "Շուկայական դիրք․ բրենդը տարբերվում է սենդվիչների վրա մասնագիտացմամբ և բաղադրիչների ընտրության հնարավորությամբ։",
+                    "Մրցակցային առավելություններ․ անհատականացված պատվերներ, սենդվիչների բազմազանություն և արագ սպասարկում։",
+                    "Մրցակիցներ․ սենդվիչների ցանցեր, տեղական սրճարաններ և արագ սննդի այլ ընկերություններ։"
+                ]
+            },
+
+
+
+            {
+                id: "wendys",
+                name: "Wendy's",
+                title: "Wendy's",
+                category: "Արագ սնունդ",
+                description: "Բուրգերների և արագ սպասարկման ռեստորանների միջազգային ցանց։",
+                image: "https://images.unsplash.com/photo-1561758033-d89a9ad46330?auto=format&fit=crop&w=1200&q=85",
+                text: [
+                    "Wendy's-ը արագ սննդի միջազգային բրենդ է, որն առաջարկում է բուրգերներ, հավով ուտեստներ և այլ արագ սնունդ։",
+                    "Շուկայական դիրք․ այն մրցում է բուրգերների և արագ սննդի միջազգային շուկայում։",
+                    "Մրցակցային առավելություններ․ ապրանքանիշի ճանաչելիություն, մենյուի առանձնահատկություններ և գովազդ։",
+                    "Մրցակիցներ․ McDonald's-ը, Burger King-ը և արագ սննդի այլ ցանցեր։"
+                ]
+            },
+
+
+
+            {
+                id: "comparison",
+                name: "Բրենդների համեմատություն",
+                title: "Հինգ բրենդների համեմատություն",
+                description: "Ուսումնասիրենք նրանց մասնագիտացումը և մրցակցային առանձնահատկությունները։",
+                image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=85",
+                text: [
+                    "Բոլոր հինգ բրենդները գործում են սննդի ոլորտում, սակայն տարբեր ապրանքային առաջարկներ ունեն։",
+                    "McDonald's և Burger King․ հիմնականում մրցակցում են բուրգերների և արագ սպասարկման ոլորտում։",
+                    "KFC․ առանձնանում է հավի մսով ուտեստների մասնագիտացմամբ։",
+                    "Subway․ կենտրոնանում է սենդվիչների և բաղադրիչների ընտրության վրա։",
+                    "Wendy's․ մրցում է բուրգերների և արագ սննդի շուկայում։"
+                ]
+            },
+
+            {
+                id: "conclusion",
+                name: "Եզրակացություն",
+                title: "Եզրակացություն",
+                description: "Շուկայական մրցակցության կարևորությունը։",
+                image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1200&q=85",
+                text: [
+                    "Ընկերությունները մրցում են գնորդների ուշադրության և վստահության համար։",
+                    "Բրենդի հաջողության վրա ազդում են ապրանքի որակը, գինը, ճանաչելիությունը, սպասարկումը և հասանելիությունը։",
+                    "Մրցակցությունը խթանում է ընկերություններին բարելավել իրենց առաջարկները և հաշվի առնել սպառողների պահանջները։"
+                ]
+            }
+        ];
+
+        const menu = document.getElementById("menu");
+
+        sections.forEach(section => {
+            const button = document.createElement("button");
+
+            button.className = "menu-btn";
+
+            if ([
+                "mcdonalds",
+                "burgerking",
+                "kfc",
+                "subway",
+                "wendys"
+            ].includes(section.id)) {
+                button.classList.add("brand-link");
+            }
+
+            button.textContent = section.name;
+            button.dataset.id = section.id;
+
+            button.addEventListener("click", () => {
+                showSection(section.id);
+            });
+
+            menu.appendChild(button);
+        });
+
+
+        function createCard(section) {
+            return `
+    <article class="card">
+      <img
+        src="${section.image}"
+        alt="${section.title}"
+        loading="lazy"
+      >
+
+      <div class="card-content">
+        <div class="card-category">
+          ${section.category || "Տնտեսագիտություն"}
+        </div>
+
+        <h3>${section.title}</h3>
+        <p>${section.description}</p>
+
+        <button
+          class="open-btn"
+          onclick="showSection('${section.id}')"
+        >
+          Կարդալ ավելին →
+        </button>
+      </div>
+    </article>
+  `;
+        }
+
+
+        function createComparisonTable() {
+            const brands = sections.filter(section =>
+                [
+                    "mcdonalds",
+                    "burgerking",
+                    "kfc",
+                    "subway",
+                    "wendys"
+                ].includes(section.id)
+            );
+
+            const rows = brands.map(brand => {
+                let specialty = "";
+                let advantage = "";
+                let competitors = "";
+
+                switch (brand.id) {
+                    case "mcdonalds":
+                        specialty = "Բուրգերներ և արագ սնունդ";
+                        advantage = "Լայն ցանց և ճանաչելիություն";
+                        competitors = "Burger King, Wendy's";
+                        break;
+
+                    case "burgerking":
+                        specialty = "Բուրգերներ";
+                        advantage = "Տարբերակված բուրգերային առաջարկ";
+                        competitors = "McDonald's, Wendy's";
+                        break;
+
+                    case "kfc":
+                        specialty = "Հավի մսով ուտեստներ";
+                        advantage = "Մասնագիտացված մենյու";
+                        competitors = "Popeyes, McDonald's";
+                        break;
+
+                    case "subway":
+                        specialty = "Սենդվիչներ և աղցաններ";
+                        advantage = "Բաղադրիչների ընտրություն";
+                        competitors = "Տեղական սրճարաններ և սենդվիչների ցանցեր";
+                        break;
+
+                    case "wendys":
+                        specialty = "Բուրգերներ և արագ սնունդ";
+                        advantage = "Ճանաչելի ապրանքանիշ և մենյու";
+                        competitors = "McDonald's, Burger King";
+                        break;
+                }
+
+                return `
+      <tr>
+        <td>${brand.title}</td>
+        <td>${specialty}</td>
+        <td>${advantage}</td>
+        <td>${competitors}</td>
+      </tr>
+    `;
+            }).join("");
+
+            return `
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Բրենդ</th>
+            <th>Մասնագիտացում</th>
+            <th>Մրցակցային առավելություն</th>
+            <th>Մրցակիցներ</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      Այս աղյուսակը համեմատում է բրենդների ընդհանուր առանձնահատկությունները։
+      Այն չի ներկայացնում շուկայի ճշգրիտ մասնաբաժինները կամ վաճառքի
+      պաշտոնական վարկանիշը։
+    </div>
+  `;
+        }
+
+        /* ========== ԲԱԺԻՆԸ ՑՈՒՑԱԴՐԵԼ ========== */
+
+        function showSection(id) {
+            const section = sections.find(item => item.id === id);
+
+            if (!section) return;
+
+            document.getElementById("pageTitle").textContent =
+                section.title;
+
+            document.querySelectorAll(".menu-btn").forEach(button => {
+                button.classList.toggle(
+                    "active",
+                    button.dataset.id === id
+                );
+            });
+
+            const content = document.getElementById("content");
+
+            if (id === "home") {
+                const brandIds = [
+                    "mcdonalds",
+                    "burgerking",
+                    "kfc",
+                    "subway",
+                    "wendys"
+                ];
+
+                const brands = sections.filter(item =>
+                    brandIds.includes(item.id)
+                );
+
+                content.innerHTML = `
+      <section class="hero">
+        <div class="hero-label">Տնտեսագիտություն • 2026</div>
+        <h2>${section.title}</h2>
+        <p>${section.description}</p>
+      </section>
+
+      <h2 class="section-heading">Ուսումնասիրիր շուկան</h2>
+
+      <p class="section-subtitle">
+        Սկսիր հիմնական հասկացություններից, ապա ուսումնասիրիր
+        իրական բրենդների մրցակցությունը։
+      </p>
+
+      <div class="cards">
+        ${sections
+                        .filter(item =>
+                            ["market", "structure", "competition", "monopoly"]
+                                .includes(item.id)
+                        )
+                        .map(createCard)
+                        .join("")}
+      </div>
+
+      <h2 class="section-heading" style="margin-top:32px">
+        Հինգ հայտնի բրենդ
+      </h2>
+
+      <p class="section-subtitle">
+        Դիտիր յուրաքանչյուր բրենդի նկարագրությունը և նրա
+        մրցակցային առանձնահատկությունները։
+      </p>
+
+      <div class="cards">
+        ${brands.map(createCard).join("")}
+      </div>
+
+      <h2 class="section-heading" style="margin-top:32px">
+        Համեմատիր բրենդները
+      </h2>
+
+      <p class="section-subtitle">
+        Տես նրանց մասնագիտացումները, առավելություններն ու մրցակիցներին։
+      </p>
+
+      ${createComparisonTable()}
+
+      <button class="open-btn"
+        onclick="showSection('comparison')">
+        Բացել ամբողջ համեմատությունը →
+      </button>
+    `;
+            } else {
+                const paragraphs = section.text
+                    .map(paragraph => `<p>${paragraph}</p>`)
+                    .join("");
+
+                const comparison = id === "comparison"
+                    ? createComparisonTable()
+                    : "";
+
+                content.innerHTML = `
+      <button class="back-btn"
+        onclick="showSection('home')">
+        ← Վերադառնալ գլխավոր էջ
+      </button>
+
+      <article class="article">
+        <h2>${section.title}</h2>
+        <p>${section.description}</p>
+
+        <img src="${section.image}" alt="${section.title}">
+
+        ${paragraphs}
+
+        ${comparison}
+
+        ${id !== "comparison" ? `
+          <div class="note">
+            Շուկայական դիրքը կախված է երկրի, ժամանակահատվածի,
+            վաճառքի և սպառողների պահանջարկի առանձնահատկություններից։
+          </div>
+        ` : ""}
+      </article>
+    `;
+            }
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+
+        /* ========== ՍԿՍԵԼ ԳԼԽԱՎՈՐ ԷՋԻՑ ========== */
+
+        showSection("home");
+
+    </script>
+
+</body>
+
+</html>
